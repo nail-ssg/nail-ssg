@@ -8,6 +8,6 @@ setup(
     long_description=open(join(dirname(__file__), 'README.md')).read(),
     entry_points={
         'console_scripts':
-            ['nail-ssg = site_builder.commands:run']
+            ['nail-ssg = nail_ssg.commands:run']
     }
 )
