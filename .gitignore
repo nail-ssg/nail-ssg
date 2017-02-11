@@ -1,0 +1,8 @@
+env/
+.idea/
+*.pyc
+dist/
+.config.yml
+tests/
+test/
+src/
