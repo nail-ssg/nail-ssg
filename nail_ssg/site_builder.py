@@ -1,7 +1,7 @@
 import os
 import re
 from .debug import *
-from dir_runner import DirRunner
+from .dir_runner import DirRunner
 from collections import OrderedDict
 
 _renders = OrderedDict()

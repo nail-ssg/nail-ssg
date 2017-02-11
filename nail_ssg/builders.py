@@ -3,7 +3,7 @@ from .site_builder import SiteBuilder
 from time import sleep
 import os
 
-_default_distributive_folder = 'dist'
+_default_distributive_folder = 'site'
 
 
 def build_static(site_builder: SiteBuilder):
