@@ -20,7 +20,7 @@ def file_handler(folder, data, site_builder: SiteBuilder):
 
 
 def page_handler(folder, data, site_builder: SiteBuilder):
-    if folder == site_builder.config('pages.folder', 'pages'):
+    if folder == site_builder.conf.config('pages.folder', 'pages'):
         if not data:
             data = {'renders': {'plain': None}}
         add_to_collection(site_builder, 'allPages', data)

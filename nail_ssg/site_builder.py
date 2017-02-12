@@ -2,6 +2,8 @@ import os
 import re
 from .debug import *
 from .dir_runner import DirRunner
+from .config import Config
+from .common import dict_concat
 from collections import OrderedDict
 
 _renders = OrderedDict()
@@ -16,20 +18,6 @@ _priority = {
 
 def slug(s: str) -> str:
     return re.sub('[^a-zA-Z0-9]', '_', s)
-
-
-def dict_concat(dict1, dict2):
-    for key in dict2:
-        if type(dict2[key]) == dict:
-            if key not in dict1 or type(dict1[key]) != dict:
-                dict1[key] = {}
-            dict_concat(dict1[key], dict2[key])
-        elif type(dict2[key]) == list:
-            if key not in dict1 or type(dict1[key]) != list:
-                dict1[key] = []
-            dict1[key] += dict2[key]
-        else:
-            dict1[key] = dict2[key]
 
 
 def run_folder_handlers(folder, data, site_builder, any_folder=False):
@@ -49,22 +37,20 @@ class SiteBuilder:
         'aliases': {}
     }
     folders = set()
-    _config = {}
     defaultAlias = ''
 
     def __init__(self, filename):
-        self._config_filename = filename
-        self._config = self.loadConfig(filename)
+        print(Config)
+        self.conf = Config(filename)
 
     def build(self):
-        dr = DirRunner(self.config('core.src', 'src'), self._file_handler)
+        dr = DirRunner(self.conf.config('core.src', 'src'), self._file_handler)
         dr.run()
         yprint(self.allData)
         for builder in _builders:
             builder(self)
-        if self.config('core.autoUpdateConfig', True):
-            with open(self._config_filename, 'w') as f:
-                yaml.dump(self._config, f, default_flow_style=False)
+        if self.conf.config('core.autoUpdateConfig', True):
+            self.conf.save()
 
     @staticmethod
     def _extract_yaml_data(filename: str):
@@ -90,7 +76,7 @@ class SiteBuilder:
 
     def _file_handler(self, dr: DirRunner, full_path: str, is_dir: bool) -> bool:
         root, ext = os.path.splitext(full_path)
-        if ext.lower() not in self.config('core.txtFiles', _txt_files):
+        if ext.lower() not in self.conf.config('core.txtFiles', _txt_files):
             return True
         print(full_path)
         if not is_dir:
@@ -111,20 +97,8 @@ class SiteBuilder:
     def concatCollection(collection1, collection2) -> None:
         dict_concat(collection1, collection2)
 
-    def config(self, option: str, default_value=None) -> object:
-        section = self._config
-        section_names = option.split('.')
-        name = section_names[-1]
-        for section_name in section_names[:-1]:
-            if section_name not in section:
-                section[section_name] = {}
-            section = section[section_name]
-        if name not in section:
-            section[name] = default_value
-        return section[name]
-
     def getText(self, rel_path: str) -> str:
-        path = os.sep.join([self.config('core.src'), rel_path])
+        path = os.sep.join([self.conf.config('core.src'), rel_path])
         lines = []
         for line in open(path, 'r', encoding='utf-8').readlines():
             if line[0:3] != '...':
@@ -198,15 +172,6 @@ class SiteBuilder:
                 context[block_name] = text
                 text = self.renderFile(render_options['extend'], context)
         return text
-
-    def loadConfig(self, filename):
-        self._config = {}
-        if not os.path.exists(filename):
-            self._config = {}
-        else:
-            with open(filename, 'r') as f:
-                dict_concat(self._config, yaml.load(f))
-        return self._config
 
     def renderFile(self, other_page_path, context):
         if other_page_path not in self.allData['files']:
