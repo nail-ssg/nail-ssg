@@ -7,9 +7,11 @@ from collections import OrderedDict
 _renders = OrderedDict()
 _folder_handlers = {}
 _builders = []
-setattr(_renders, 'priority', 0)
-setattr(_folder_handlers, 'priority', 0)
-setattr(_builders, 'priority', 0)
+_priority = {
+    'renders': 0,
+    'folder_handlers': 0,
+    'builders': 0
+}
 
 
 def slug(s: str) -> str:
@@ -226,26 +228,33 @@ class SiteBuilder:
 
 def register_render(name, render, priority=None):
     global _renders
-    priority = priority if priority else _renders.priority+10
+    global _priority
+    priority = priority if priority else _priority['renders']+10
     setattr(render, 'priority', priority)
-    if _renders.priority < priority:
-        _renders.priority = priority
+    if _priority['renders'] < priority:
+        _priority['renders'] = priority
     _renders[name] = render
 
 
 def register_folder_handler(folders, handler, priority=None):
     global _folder_handlers
-    priority = priority if priority else _folder_handlers.priority+10
+    global _priority
+    priority = priority if priority else _priority['folder_handlers']+10
     setattr(handler, 'priority', priority)
-    if _folder_handlers.priority < priority:
-        _folder_handlers.priority = priority
+    if _priority['folder_handlers'] < priority:
+        _priority['folder_handlers'] = priority
     for folder in folders:
         if folder not in _folder_handlers:
             _folder_handlers[folder] = []
         _folder_handlers[folder] += [handler]
 
 
-def register_builder(handler, priority):
+def register_builder(handler, priority=None):
     global _builders
+    global _priority
+    priority = priority if priority else _priority['builders']+10
+    setattr(handler, 'priority', priority)
+    if _priority['builders'] < priority:
+        _priority['builders'] = priority
     if handler not in _builders:
         _builders += [handler]
