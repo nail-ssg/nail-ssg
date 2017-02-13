@@ -12,5 +12,6 @@ setup(
     },
     install_requires=[
         'PyYAML==3.12',
-        'pystache==0.5.4'
+        'pystache==0.5.4',
+        'click==6.7'
     ])
