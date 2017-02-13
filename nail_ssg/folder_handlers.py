@@ -27,4 +27,4 @@ def page_handler(folder, data, site_builder: SiteBuilder):
         if 'pages' not in site_builder.allData:
             site_builder.allData['pages'] = {}
         site_builder.allData['pages'][data['$filePath']] = data
-        data['$url'] = data['$filePath'].replace(os.sep, '/').replace(site_builder.config('pages.folder'), '').replace('index.html', '')
+        data['$url'] = data['$filePath'].replace(os.sep, '/').replace(site_builder.conf.config('pages.folder'), '').replace('index.html', '')
