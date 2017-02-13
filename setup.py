@@ -9,5 +9,8 @@ setup(
     entry_points={
         'console_scripts':
             ['nail-ssg = nail_ssg.commands:run']
-    }
-)
+    },
+    install_requires=[
+        'PyYAML==3.12',
+        'pystache==0.5.4'
+    ])
