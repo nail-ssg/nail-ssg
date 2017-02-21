@@ -3,7 +3,7 @@ from os.path import join, dirname
 
 setup(
     name='nail-ssg',
-    version='0.1',
+    version='0.2',
     packages=find_packages(),
     long_description=open(join(dirname(__file__), 'README.md')).read(),
     entry_points={
@@ -13,5 +13,7 @@ setup(
     install_requires=[
         'PyYAML==3.12',
         'pystache==0.5.4',
-        'click==6.7'
+        'click==6.7',
+        'pytest==3.0.6',
+        'ruamel.yaml==0.13.14'
     ])

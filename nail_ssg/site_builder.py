@@ -1,6 +1,6 @@
 import os
 import re
-from .debug import *
+from .print import *
 from .dir_runner import DirRunner
 from .config import Config
 from .common import dict_concat

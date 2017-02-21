@@ -1,4 +1,4 @@
-from .debug import *
+from .print import *
 from pystache import Renderer
 from .site_builder import dict_concat
 from .site_builder import SiteBuilder

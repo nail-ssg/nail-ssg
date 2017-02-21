@@ -9,3 +9,4 @@ src/
 *.cmd
 build/
 nail_ssg.egg-info/
+.cache/
