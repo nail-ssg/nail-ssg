@@ -1,5 +1,5 @@
 from shutil import rmtree, copytree
-from .site_builder import SiteBuilder
+from .builder import Builder as SiteBuilder
 from time import sleep
 import os
 

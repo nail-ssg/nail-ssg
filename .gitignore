@@ -1,10 +1,12 @@
-env/
-.idea/
+*.cmd
 *.pyc
-dist/
 .config.yml
+.idea/
+.cache/
+env/
+dist/
 test/
 src/
-*.cmd
 build/
+notebooks/
 nail_ssg.egg-info/

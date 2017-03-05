@@ -1,6 +1,9 @@
 import sys
 import click
-from .site_builder import SiteBuilder
+# from .site_builder import SiteBuilder
+
+from .builder import Builder as SiteBuilder
+
 
 @click.group(chain=True)
 def cli1():
@@ -12,7 +15,6 @@ def cli1():
 def prepare(directory=None):
     """prepare"""
     print('prepare', directory)
-    pass
 
 
 @click.group(chain=True)
@@ -24,10 +26,10 @@ def cli2():
 @click.argument('configfile', default='.config.yml', type=str)
 def build(configfile=None):
     """build"""
-    print('build', configfile)
+    # print('build', configfile)
     site_builder = SiteBuilder(configfile)
+    # print(site_builder.conf._config)
     site_builder.build()
-    pass
 
 cli = click.CommandCollection(sources=[cli1, cli2])
 

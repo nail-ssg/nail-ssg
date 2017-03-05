@@ -1,7 +1,7 @@
-from .debug import *
+from .print import *
 from pystache import Renderer
-from .site_builder import dict_concat
-from .site_builder import SiteBuilder
+# from .site_builder import dict_concat
+from .builder import Builder as SiteBuilder
 
 
 def plain_render(site_builder: SiteBuilder, text: str, model: dict, render_options: dict) -> str:

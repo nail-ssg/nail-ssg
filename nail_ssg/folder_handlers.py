@@ -1,5 +1,5 @@
 import os
-from .site_builder import SiteBuilder
+from .builder import Builder as SiteBuilder
 
 
 def add_to_collection(site_builder: SiteBuilder, collection_name, data):
