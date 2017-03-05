@@ -11,9 +11,7 @@ setup(
             ['nail-ssg = nail_ssg.commands:run']
     },
     install_requires=[
-        'PyYAML==3.12',
         'pystache==0.5.4',
         'click==6.7',
-        'pytest==3.0.6',
         'ruamel.yaml==0.13.14'
     ])
