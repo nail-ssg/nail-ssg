@@ -3,6 +3,8 @@ from .basemodule import BaseModule
 
 class Pages(BaseModule):
     """docstring for Pages"""
+    _default_config = {}
+    _config_comments = {}
 
     def __init__(self, config):
         super(Pages, self).__init__(config)
