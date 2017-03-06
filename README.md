@@ -68,7 +68,7 @@ builders:
 ## page settings
 ``` yaml
 # v0.2
-$settings:
+$global:
   alias:
     name: aliasName
     namespace: default

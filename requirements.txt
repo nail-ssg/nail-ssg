@@ -1,4 +1,4 @@
-git+https://github.com/nail-ssg/nail-config@develop
+git+https://github.com/nail-ssg/nail-config@v0.1
 Markdown==2.6.7
 pystache==0.5.4
 PyYAML==3.12

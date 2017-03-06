@@ -34,14 +34,12 @@ class Core(BaseModule):
     def build(self):
         super().build()
 
-    def folders(self):
-        super().folders()
-
     def process_file(self):
         super().process_file()
 
     def __init__(self):
         super().__init__()
 
-    def render(self, text, data):
-        super().render(text, data)
+
+def create():
+    return Core()

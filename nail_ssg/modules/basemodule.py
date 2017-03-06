@@ -5,24 +5,20 @@ class BaseModule(object):
     name = ''
     types = {}
 
-    def __init__(self):
+    def __init__(self, config):
+        self._config = config
+        cls = self.__class__
+        config.add_default_config(cls._default_config, cls._config_comments)
         pass
 
-    def folders(self):
-        pass
+    # def folders(self):
+    #     pass
 
-    def process_file(self):
-        pass
+    def process_file(self, rule, fileinfo, data, global_data):
+        return data
 
     def modify_data(self):
         pass
 
     def build(self):
         pass
-
-    def render(self, text, data):
-        pass
-
-    @classmethod
-    def get_default_config(cls):
-        return cls._default_config, cls._config_comments
