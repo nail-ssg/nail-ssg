@@ -1,0 +1,29 @@
+from .basemodule import BaseModule
+
+
+class BasePlugin(BaseModule):
+    module_type = 'plugin'
+    _default_config = None   # dict
+    _config_comments = None  # dict
+    __version__ = None       # string
+    name = ''
+    types = {}
+
+    def __init__(self, config):
+        super().__init__(config)
+        cls = self.__class__
+        config.add_default_config(cls._default_config, cls._config_comments)
+
+    def process_file(self, fileinfo, data, global_data):
+        print('       rule:', fileinfo['rule'])
+        print('   fileinfo:', fileinfo)
+        print('       data:', data)
+        print('global_data:', global_data)
+        print(self)
+        return data
+
+    def modify_data(self):
+        pass
+
+    def build(self):
+        pass

@@ -1,7 +1,7 @@
-from .basemodule import BaseModule
+from .baseplugin import BasePlugin
 
 
-class Pages(BaseModule):
+class Pages(BasePlugin):
     """docstring for Pages"""
     _default_config = {}
     _config_comments = {}
@@ -12,8 +12,8 @@ class Pages(BaseModule):
     def modify_data(self):
         super().modify_data()
 
-    def process_file(self, rule, fileinfo, data, global_data):
-        return super().process_file(rule, fileinfo, data, global_data)
+    def process_file(self, fileinfo, data, global_data):
+        return super().process_file(fileinfo, data, global_data)
 
     def build(self):
         super().build()

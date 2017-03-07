@@ -4,43 +4,44 @@ Nail. Simple site generator
 ## config.yml
 ``` yaml
 # config.yml v0.2
+modules: !!omap
+  static:
+    state: on
+  collections:
+    state: on
+  alias:
+    state: on
+  pages:
+    state: on
+  mixin:
+    state: on
 core:
-  modules:
-    static: on      # v0.1
-    collections: on # v0.1
-    alias: on       # v0.1
-    pages: on       # v0.1
-    mixin: off      # v0.1
   dist: site
   src: src
   currentNamespace: default
-renders:
-- plain:
-- mustache:
-
-scan:
-  dataFolders:
-  - data
-  types:
-  - type: ignore
-    rules: 
-    - fileMask = descrption.txt
-  - type: page
-    rules:
-    - endOfName = .html
-    - endOfName = .part
-    - endOfName = .tpl
-    - endOfName = .page.js
-    - endOfName = .page.css
-    - endOfName = .page.yml
-    - endOfName = .page.json
-    - endOfName = .page.txt
-  - type: data
-    rules:
-    - endOfName = .data.yml
-  - type: static
-    rules:
-    - fileMask = *.*
+  scan:
+    dataFolders:
+    - data
+    types:
+    - type: ignore
+      rules: 
+      - fileMask = descrption.txt
+    - type: page
+      rules:
+      - endOfName = .html
+      - endOfName = .part
+      - endOfName = .tpl
+      - endOfName = .page.js
+      - endOfName = .page.css
+      - endOfName = .page.yml
+      - endOfName = .page.json
+      - endOfName = .page.txt
+    - type: data
+      rules:
+      - endOfName = .data.yml
+    - type: static
+      rules:
+      - fileMask = *.*
 
 modify:
   - alias:
@@ -52,6 +53,9 @@ modify:
       otherAsStatic: true
 
 builders:
+  renders:
+  - plain:
+  - mustache:
   order:
     - static
     - pages

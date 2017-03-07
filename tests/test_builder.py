@@ -13,5 +13,5 @@ def empty_builder():
 
 
 def test_builder(empty_builder):
-    empty_builder.add_module('pages')
+    # empty_builder.add_module('pages')
     empty_builder.build()

@@ -1,7 +1,7 @@
-from .basemodule import BaseModule
+from .baseplugin import BasePlugin
 
 
-class Core(BaseModule):
+class Core(BasePlugin):
     _default_config = {
         'core:': {
             'modules': {
@@ -27,19 +27,15 @@ class Core(BaseModule):
     def modify_data(self):
         super().modify_data()
 
-    @classmethod
-    def get_default_config(cls):
-        return super().get_default_config()
-
     def build(self):
         super().build()
 
-    def process_file(self):
-        super().process_file()
+    def process_file(self, fileinfo, data, global_data):
+        super().process_file(fileinfo, data, global_data)
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, config):
+        super().__init__(config)
 
 
-def create():
-    return Core()
+def create(config):
+    return Core(config)
