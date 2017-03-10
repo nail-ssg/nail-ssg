@@ -81,6 +81,12 @@ $global:
     - collectionName1
     - collectionName2
     - collectionName3
+  neighbors:
+    - collection: collectionName4
+      direction: ascending
+      fieldname: dataName1
+      useAs: dataName3
+      distance: 1
   renders:
     - type: jade
     - type: mustache
