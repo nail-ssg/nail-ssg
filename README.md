@@ -4,21 +4,22 @@ Nail. Simple site generator
 ## config.yml
 ``` yaml
 # config.yml v0.2
-modules: !!omap
-  static:
-    state: on
-  collections:
-    state: on
-  alias:
-    state: on
-  pages:
-    state: on
-  mixin:
-    state: on
 core:
   dist: site
   src: src
   currentNamespace: default
+  modules: !!omap
+    - static:
+        state: on
+    - collections:
+        state: on
+    - alias:
+        state: on
+    - pages:
+        state: on
+    - mixin:
+        state: on
+main:
   scan:
     dataFolders:
     - data
@@ -28,17 +29,17 @@ core:
       - fileMask = descrption.txt
     - type: page
       rules:
-      - endOfName = .html
-      - endOfName = .part
-      - endOfName = .tpl
-      - endOfName = .page.js
-      - endOfName = .page.css
-      - endOfName = .page.yml
-      - endOfName = .page.json
-      - endOfName = .page.txt
+      - fileMask = *.html
+      - fileMask = *.part
+      - fileMask = *.tpl
+      - fileMask = *.page.js
+      - fileMask = *.page.css
+      - fileMask = *.page.yml
+      - fileMask = *.page.json
+      - fileMask = *.page.txt
     - type: data
       rules:
-      - endOfName = .data.yml
+      - fileMask = *.data.yml
     - type: static
       rules:
       - fileMask = *.*

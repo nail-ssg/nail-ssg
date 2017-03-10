@@ -5,6 +5,9 @@ class BaseModule(object):
     name = ''
 
     def __init__(self, config):
-        self._config = config
+        self.config = config
         cls = self.__class__
         config.add_default_config(cls._default_config, cls._config_comments)
+
+    def init(self):
+        pass

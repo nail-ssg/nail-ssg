@@ -14,12 +14,12 @@ class BasePlugin(BaseModule):
         cls = self.__class__
         config.add_default_config(cls._default_config, cls._config_comments)
 
-    def process_file(self, fileinfo, data, global_data):
-        print('       rule:', fileinfo['rule'])
-        print('   fileinfo:', fileinfo)
-        print('       data:', data)
-        print('global_data:', global_data)
-        print(self)
+    def process_file(self, fileinfo, rules, data, global_data):
+        # print('      rules:', rules)
+        # print('   fileinfo:', fileinfo)
+        # print('       data:', data)
+        # print('global_data:', global_data)
+        # print(self)
         return data
 
     def modify_data(self):

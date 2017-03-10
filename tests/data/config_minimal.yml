@@ -1,3 +1,7 @@
 core:
   dist: site
   src: tests/data/src1
+  modules: !!omap
+    - pages:
+        state: on
+  main: main
