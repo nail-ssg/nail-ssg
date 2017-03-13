@@ -10,3 +10,5 @@ class ConfigEx(Config):
         super().__init__()
         self.modules = OrderedDict()
         self.data = {}
+        self.full_src_path = ''
+        self.full_dst_path = ''

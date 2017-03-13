@@ -8,50 +8,50 @@ core:
   dist: site
   src: src
   currentNamespace: default
-  modules: !!omap
-    - static:
-        state: on
-    - collections:
-        state: on
-    - alias:
-        state: on
-    - pages:
-        state: on
-    - mixin:
-        state: on
-main:
-  scan:
-    dataFolders:
-    - data
-    types:
-    - type: ignore
-      rules: 
-      - fileMask = descrption.txt
-    - type: page
-      rules:
-      - fileMask = *.html
-      - fileMask = *.part
-      - fileMask = *.tpl
-      - fileMask = *.page.js
-      - fileMask = *.page.css
-      - fileMask = *.page.yml
-      - fileMask = *.page.json
-      - fileMask = *.page.txt
-    - type: data
-      rules:
-      - fileMask = *.data.yml
-    - type: static
-      rules:
-      - fileMask = *.*
+  modules:
+    static: on
+    collections: on
+    alias: on
+    pages: on
+    mixin: on
+  main:
+    module: main
+    options:
+scan:
+  order:
+  - page
+  - data
+  - static
+  pages:
+    folder: pages
+  types:
+  - type: page
+    extractData: true
+    rules:
+    - fileMask = *.html
+    - regExp = \.page\.
+  - type: data
+    extractData: true
+    rules:
+    - fileMask = *.yml
+    - regExp = \.data\.
+  - type: static
+    extractData: false
+    rules:
+    - fileMask = *.*
 
 modify:
-  - alias:
-  - collections:
-  - mixin:
+  order:
+  - alias
+  - collections
+  - mixin
+  - pages
+  options:
   - pages:
       folder: pages
       dontCopy:
       otherAsStatic: true
+
 
 builders:
   renders:
@@ -81,6 +81,7 @@ $global:
     - collectionName1
     - collectionName2
     - collectionName3
+$local:
   neighbors:
     - collection: collectionName4
       direction: ascending
@@ -99,7 +100,6 @@ $global:
   load:
     - var1: file1
     - var2: file2
-$local:
   collections:
     css:
       - href: style1.css

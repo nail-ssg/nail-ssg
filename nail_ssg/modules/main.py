@@ -1,24 +1,49 @@
 from .baseplugin import BasePlugin
 from nail_ssg.check_rules import check_rule
+import ruamel.yaml as yaml
+
+
+def _extract_yaml_data(filename: str):
+    striped_line = ''
+    with open(filename, 'r', encoding='utf-8') as f:
+        yaml_lines = []
+        checked_yaml = False
+        for line in f.readlines():
+            striped_line = line.strip()
+            if not checked_yaml and (striped_line != '---'):
+                break
+            checked_yaml = True
+            yaml_lines += [line]
+            if striped_line == '...':
+                break
+    if striped_line != '...':
+        return {}
+    yaml_str = ''.join(yaml_lines)
+    result = yaml.load(yaml_str, Loader=yaml.Loader)
+    if not result:
+        result = {}
+    return result
 
 
 class SsgMain(BasePlugin):
     _default_config = {
-        'main': {
+        'core': {
             'modules': {
                 "static": True,
                 "collections": True,
                 "alias": True,
                 "pages": True,
-                "mixin": True
+                "mixin": True,
             },
-            'dist': 'site',
-            'src': 'src',
-            'defaultNamespace': 'default'
         },
     }
     _config_comments = {}
     name = 'main'
+
+    def __init__(self, config):
+        super().__init__(config)
+        if not config:
+            return
 
     def modify_data(self):
         super().modify_data()
@@ -38,16 +63,12 @@ class SsgMain(BasePlugin):
                     if file_type['type'] not in rules:
                         rules[file_type['type']] = []
                     rules[file_type['type']] += [rule]
-        print(rules)
-
-    def __init__(self, config):
-        super().__init__(config)
-        if not config:
-            return
-        print(config)
+        if len(rules):
+            filename = fileinfo['full_path']
+            data.update(_extract_yaml_data(filename))
 
     def init(self):
-        self.types = self.config('main.scan.types', [])
+        self.types = self.config('scan.types', [])
 
 
 def create(config):

@@ -1,7 +1,20 @@
 core:
-  dist: site
   src: tests/data/src1
-  modules: !!omap
-    - pages:
-        state: on
+  dist: site
+  currentNamespace: default
+  modules:
+    pages: true
   main: main
+scan:
+  order:
+  - pages
+  - static
+  main: 
+  pages:
+    folder: pages
+  types:
+  - type: page
+    extractData: true
+    rules:
+    - fileMask = *.html
+    - regExp = \.page\.
