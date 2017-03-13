@@ -1,5 +1,5 @@
 from .print import *
-from nail_config.config import Config
+from .modules import ConfigEx
 from .dir_runner import DirRunner
 from collections import OrderedDict
 import importlib
@@ -10,7 +10,7 @@ class Builder(object):
     config = None
 
     def _load_config(self, filename):
-        self.config = Config()
+        self.config = ConfigEx()
         if not self.config.load(filename):
             raise Exception('OMG')
         config_comments = {
@@ -25,14 +25,13 @@ class Builder(object):
         )
 
     def _init_modules(self):
-        for module_name in self._modules:
-            module = self._modules[module_name]
+        for module_name in self.config.modules:
+            module = self.config.modules[module_name]
             module.init()
 
     def __init__(self, filename):
         # if not os.path.exists(filename):
         #     self.set_default_config()
-        self._modules = OrderedDict()
         self._load_config(filename)
         self.src = self.config('core.src', 'src')
         main_module = self.config('core.main', 'main')
@@ -50,25 +49,25 @@ class Builder(object):
     def _file_handler(self, dr: DirRunner, full_path: str, is_dir: bool) -> bool:
         data = {}
         rules = {}
-        for module_name in self._modules:
-            module = self._modules[module_name]
-            folder, name = full_path.rsplit(os.sep, 1)
-            fileinfo = {
-                'folder': folder,
-                'name': name,
-                'is_dir': is_dir,
-                'full_path': full_path
-            }
+        folder, name = full_path.rsplit(os.sep, 1)
+        fileinfo = {
+            'folder': folder,
+            'name': name,
+            'is_dir': is_dir,
+            'full_path': full_path
+        }
+        for module_name in self.config.modules:
+            module = self.config.modules[module_name]
             module.process_file(fileinfo, rules, data, self.global_data)
         return True
 
     def add_module(self, module_name):
-        if module_name not in self._modules:
+        if module_name not in self.config.modules:
             try:
                 module = importlib.import_module('nail_ssg.modules.' + module_name)
             except Exception as e:
                 raise e
-            self._modules[module_name] = module.create(self.config)
+            self.config.modules[module_name] = module.create(self.config)
             modules = self.config('core.modules')
             if modules:
                 for module_name in modules:

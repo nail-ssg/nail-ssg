@@ -2,7 +2,7 @@ from .baseplugin import BasePlugin
 from nail_ssg.check_rules import check_rule
 
 
-class NailMain(BasePlugin):
+class SsgMain(BasePlugin):
     _default_config = {
         'main': {
             'modules': {
@@ -40,7 +40,6 @@ class NailMain(BasePlugin):
                     rules[file_type['type']] += [rule]
         print(rules)
 
-
     def __init__(self, config):
         super().__init__(config)
         if not config:
@@ -52,4 +51,4 @@ class NailMain(BasePlugin):
 
 
 def create(config):
-    return NailMain(config)
+    return SsgMain(config)

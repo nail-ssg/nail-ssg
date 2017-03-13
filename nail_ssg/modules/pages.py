@@ -23,6 +23,9 @@ class Pages(BasePlugin):
     def __init__(self, config):
         super(Pages, self).__init__(config)
 
+    def init(self):
+        pass
+
     def modify_data(self):
         super().modify_data()
 
