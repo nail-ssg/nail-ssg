@@ -54,9 +54,12 @@ class Builder(object):
         #     self.set_default_config()
         self._load_config(filename)
         self.src = self.config('core.src')
-        self.config.full_src_path = os.path.abspath(self.src)
         self.dst = self.config('core.dist',)
+        self.config.full_src_path = os.path.abspath(self.src)
         self.config.full_dst_path = os.path.abspath(self.dst)
+        self.config.data = {
+            'data': {},
+        }
         main_module_name = self.config('core.main')
         self.main_module = self.add_module(main_module_name)
         self._init_modules()
@@ -72,12 +75,10 @@ class Builder(object):
         yprint(self.config.data)
 
         for module_name in self.config('modify.order'):
-            print(module_name)
             module = self.config.modules[module_name]
             module.modify_data()
 
         for module_name in self.config('builders.order'):
-            print(module_name)
             module = self.config.modules[module_name]
             module.build()
 
@@ -97,7 +98,7 @@ class Builder(object):
         for module_name in self.scan_order:
             module = self.config.modules[module_name]
             module.process_file(fileinfo, rules, data)
-        self.config.data[rel_path] = data
+        self.config.data['data'][rel_path] = data
         return True
 
     def add_module(self, module_name):

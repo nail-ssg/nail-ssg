@@ -17,8 +17,6 @@ def mustache_render(site_builder: SiteBuilder, text: str, context: dict, render_
         for partial_name in render_options['partials']:
             partial_path = render_options['partials'][partial_name]
             partials[partial_name] = site_builder.renderFile(partial_path, context)
-    # yprint(context)
-    # yprint(partials)
     renderer = Renderer(partials=partials)
     s = renderer.render(text, context)
     return s
