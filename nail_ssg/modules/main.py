@@ -26,8 +26,8 @@ class SsgMain(BasePlugin):
     def build(self):
         super().build()
 
-    def process_file(self, fileinfo, rules, data, global_data):
-        super().process_file(fileinfo, rules, data, global_data)
+    def process_file(self, fileinfo, rules, data):
+        super().process_file(fileinfo, rules, data)
         # todo: определить к какому правилу относится файл
         # print('*'*20)
         for file_type in self.types:

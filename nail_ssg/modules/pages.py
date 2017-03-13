@@ -29,8 +29,8 @@ class Pages(BasePlugin):
     def modify_data(self):
         super().modify_data()
 
-    def process_file(self, fileinfo, rules, data, global_data):
-        return super().process_file(fileinfo, rules, data, global_data)
+    def process_file(self, fileinfo, rules, data):
+        return super().process_file(fileinfo, rules, data)
 
     def build(self):
         super().build()

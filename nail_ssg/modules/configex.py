@@ -9,3 +9,4 @@ class ConfigEx(Config):
     def __init__(self):
         super().__init__()
         self.modules = OrderedDict()
+        self.data = {}

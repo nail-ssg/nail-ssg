@@ -58,7 +58,7 @@ class Builder(object):
         }
         for module_name in self.config.modules:
             module = self.config.modules[module_name]
-            module.process_file(fileinfo, rules, data, self.global_data)
+            module.process_file(fileinfo, rules, data)
         return True
 
     def add_module(self, module_name):
