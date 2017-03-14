@@ -1,6 +1,6 @@
 core:
   src: tests/data/src1
-  dist: site
+  dist: tests/data/site
   currentNamespace: default
   modules:
     pages: true

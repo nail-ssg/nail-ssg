@@ -55,6 +55,7 @@ class SsgMain(BasePlugin):
         super().process_file(fileinfo, rules, data)
         # todo: определить к какому правилу относится файл
         # print('*'*20)
+        extract_data = False
         for file_type in self.types:
             for rule in file_type['rules']:
                 validation = check_rule(rule, fileinfo['name'])
@@ -63,7 +64,8 @@ class SsgMain(BasePlugin):
                     if file_type['type'] not in rules:
                         rules[file_type['type']] = []
                     rules[file_type['type']] += [rule]
-        if len(rules):
+                    extract_data = extract_data or file_type['extractData']
+        if extract_data:
             filename = fileinfo['full_path']
             data.update(_extract_yaml_data(filename))
 
